@@ -1,9 +1,3 @@
-"""
-Unit test cho puzzle_state.py — kiểm tra goal_state, is_solvable, get_neighbors.
-
-Tác giả: Trần Duy Tân (Thành viên 4)
-"""
-
 import sys
 import os
 import unittest

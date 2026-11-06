@@ -1,9 +1,3 @@
-"""
-Unit test cho astar.py — kiểm tra thuật toán tìm được đường đi đúng, tối ưu.
-
-Tác giả: Trần Duy Tân (Thành viên 4)
-"""
-
 import sys
 import os
 import unittest
