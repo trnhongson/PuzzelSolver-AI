@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>PuzzleSolver-AI — Bộ giải 8-Puzzle / 15-Puzzle bằng A* và So sánh Heuristic</h1>
+  <h1>PuzzleSolver-AI - Bộ giải 8-Puzzle / 15-Puzzle bằng A* và So sánh Heuristic</h1>
   <p><em>
     <b>Đề tài:</b> Bộ giải bài toán 8-puzzle / 15-puzzle, tìm lời giải tối ưu và so sánh hiệu năng các hàm heuristic <br>
     <b>Môn học:</b> Trí tuệ nhân tạo
@@ -40,8 +40,8 @@
 
 ### 2. Giải pháp cốt lõi
 - **Thuật toán A\* tổng quát**: áp dụng được cho cả 8-puzzle lẫn 15-puzzle thông qua cùng một cách biểu diễn trạng thái.
-- **Hai hàm heuristic để so sánh**: Manhattan Distance và Misplaced Tiles — đo lường và so sánh định lượng số node được duyệt cũng như thời gian chạy giữa hai cách tiếp cận.
-- **Sinh đề tự động có kiểm soát độ khó**: trạng thái được sinh bằng random walk có giới hạn số bước từ trạng thái đích, đảm bảo luôn giải được và kiểm soát được độ khó — đặc biệt quan trọng khi mở rộng sang 15-puzzle để tránh thời gian chạy quá lâu.
+- **Hai hàm heuristic để so sánh**: Manhattan Distance và Misplaced Tiles, dùng để đo lường và so sánh định lượng số node được duyệt cũng như thời gian chạy giữa hai cách tiếp cận.
+- **Sinh đề tự động có kiểm soát độ khó**: trạng thái được sinh bằng random walk có giới hạn số bước từ trạng thái đích, đảm bảo luôn giải được và kiểm soát được độ khó (đặc biệt quan trọng khi mở rộng sang 15-puzzle để tránh thời gian chạy quá lâu).
 - **Demo trực quan**: hiển thị trực tiếp từng bước máy di chuyển để giải bàn cờ bằng giao diện Pygame.
 
 ### 3. Mục tiêu đánh giá
@@ -128,8 +128,8 @@ PuzzleSolver-AI/
 ### 2. Clone mã nguồn
 
 ```bash
-git clone https://github.com/<ten-nhom>/PuzzleSolver-AI.git
-cd PuzzleSolver-AI
+git clone https://github.com/trnhongson/PuzzelSolver-AI.git
+cd PuzzelSolver-AI
 ```
 
 ### 3. Cài đặt & chạy chương trình
@@ -143,7 +143,7 @@ source venv/bin/activate      # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 
 # 3. Sinh bộ test case cố định (chỉ cần chạy 1 lần)
-python src/core/generator.py --seed 42 --out src/benchmark/testcases_8puzzle.csv
+python src/core/generator.py --seed 42
 
 # 4. Chạy demo trực quan
 python src/demo/main.py
