@@ -4,16 +4,24 @@ from typing import Callable
 
 import pygame
 
-# Bảng màu giao diện hiện đại (Dark Slate Theme)
-COLOR_BG = (15, 23, 42)              # #0F172A
-COLOR_BOARD_BG = (30, 41, 59)        # #1E293B
-COLOR_SLOT_EMPTY = (15, 23, 42)      # #0F172A
-COLOR_TILE_DEFAULT = (59, 130, 246)  # #3B82F6 (Blue)
-COLOR_TILE_CORRECT = (16, 185, 129)  # #10B981 (Emerald - đúng vị trí đích)
-COLOR_TILE_MOVING = (245, 158, 11)   # #F59E0B (Amber - ô đang trượt)
-COLOR_TILE_SHADOW = (10, 15, 28)
-COLOR_TILE_BORDER = (148, 163, 184)
-COLOR_TEXT = (248, 250, 252)
+# Bảng màu Deep Navy (Lấy cảm hứng từ tone #1C1C28 - Tối giản, độ tương phản cao)
+COLOR_BG = (14, 15, 22)                # #0E0F16 - Nền chính tối sâu
+COLOR_BOARD_BG = (28, 28, 40)          # #1C1C28 - Deep Navy (Nền khung bàn cờ)
+COLOR_BOARD_BORDER = (58, 62, 84)      # #3A3E54 - Viền mảnh tinh tế
+COLOR_SLOT_EMPTY = (18, 19, 28)        # #12131C - Hốc ô trống
+
+# Màu sắc các ô số (Trực quan, phân tách rõ trạng thái nhưng cùng dải màu Navy)
+COLOR_TILE_DEFAULT = (42, 48, 68)      # #2A3044 - Ô bình thường (Slate Navy)
+COLOR_TILE_DEFAULT_BORDER = (75, 86, 118)
+
+COLOR_TILE_CORRECT = (72, 92, 132)     # #485C84 - Ô đã đúng vị trí đích (Steel Blue)
+COLOR_TILE_CORRECT_BORDER = (154, 168, 199)  # #9AA8C7 - Viền sáng nhẹ báo hiệu đúng vị trí
+
+COLOR_TILE_MOVING = (108, 128, 168)    # #6C80A8 - Ô đang trượt
+COLOR_TILE_MOVING_BORDER = (226, 232, 245)
+
+COLOR_TILE_SHADOW = (9, 10, 15)
+COLOR_TEXT = (242, 244, 250)           # #F2F4FA - Trắng sáng sắc nét
 
 
 def get_default_board_rect(screen: pygame.Surface) -> pygame.Rect:
@@ -31,9 +39,9 @@ def _compute_tile_rect(
     size: int,
     row: float,
     col: float,
-    padding: int = 10,
+    padding: int = 12,
 ) -> pygame.Rect:
-    """Tính tọa độ hình chữ nhật của một ô tại vị trí (row, col) (hỗ trợ số thực cho animation)."""
+    """Tính tọa độ hình chữ nhật của một ô tại vị trí (row, col)."""
     total_padding = padding * (size + 1)
     tile_size = (board_rect.width - total_padding) / size
     x = board_rect.left + padding + col * (tile_size + padding)
@@ -49,19 +57,34 @@ def _draw_single_tile(
     is_moving: bool,
     font: pygame.font.Font,
 ) -> None:
-    """Vẽ một ô số với đổ bóng, bo góc và căn giữa chữ số."""
-    shadow_rect = rect.move(0, 4)
-    pygame.draw.rect(screen, COLOR_TILE_SHADOW, shadow_rect, border_radius=12)
+    """Vẽ một ô số với phong cách Deep Navy phẳng, tự động co giãn theo kích thước ô."""
+    radius = max(12, rect.width // 9)
+    shadow_offset = max(3, rect.width // 40)
+    shadow_rect = rect.move(0, shadow_offset)
+    pygame.draw.rect(screen, COLOR_TILE_SHADOW, shadow_rect, border_radius=radius)
 
     if is_moving:
         fill_color = COLOR_TILE_MOVING
+        border_color = COLOR_TILE_MOVING_BORDER
+        border_w = max(2, rect.width // 70)
     elif is_correct:
         fill_color = COLOR_TILE_CORRECT
+        border_color = COLOR_TILE_CORRECT_BORDER
+        border_w = max(2, rect.width // 70)
     else:
         fill_color = COLOR_TILE_DEFAULT
+        border_color = COLOR_TILE_DEFAULT_BORDER
+        border_w = max(1, rect.width // 90)
 
-    pygame.draw.rect(screen, fill_color, rect, border_radius=12)
-    pygame.draw.rect(screen, COLOR_TILE_BORDER, rect, width=2, border_radius=12)
+    pygame.draw.rect(screen, fill_color, rect, border_radius=radius)
+    pygame.draw.rect(screen, border_color, rect, width=border_w, border_radius=radius)
+
+    # Điểm báo góc trên phải cho các ô đã nằm đúng vị trí đích để dễ quan sát từ xa
+    if is_correct and not is_moving:
+        dot_sz = max(7, rect.width // 16)
+        margin = max(10, rect.width // 12)
+        dot_rect = pygame.Rect(rect.right - margin - dot_sz, rect.top + margin, dot_sz, dot_sz)
+        pygame.draw.rect(screen, COLOR_TILE_CORRECT_BORDER, dot_rect, border_radius=dot_sz // 2)
 
     text_surf = font.render(str(tile_value), True, COLOR_TEXT)
     text_rect = text_surf.get_rect(center=rect.center)
@@ -100,20 +123,20 @@ def draw_board(
         board_rect = get_default_board_rect(screen)
 
     if font is None:
-        font_size = max(24, board_rect.width // (size * 2))
+        font_size = max(26, board_rect.width // (size * 2))
         font = pygame.font.SysFont("Segoe UI", font_size, bold=True)
 
-    padding = max(6, board_rect.width // (size * 12))
+    padding = max(8, board_rect.width // (size * 11))
 
     # Vẽ khung nền bàn cờ
-    pygame.draw.rect(screen, COLOR_BOARD_BG, board_rect, border_radius=16)
-    pygame.draw.rect(screen, COLOR_TILE_BORDER, board_rect, width=2, border_radius=16)
+    pygame.draw.rect(screen, COLOR_BOARD_BG, board_rect, border_radius=18)
+    pygame.draw.rect(screen, COLOR_BOARD_BORDER, board_rect, width=1, border_radius=18)
 
-    # Vẽ tất cả các hốc ô (slots) trước
+    # Vẽ tất cả các hốc ô trống
     for idx in range(size * size):
         r, c = divmod(idx, size)
         slot_rect = _compute_tile_rect(board_rect, size, r, c, padding)
-        pygame.draw.rect(screen, COLOR_SLOT_EMPTY, slot_rect, border_radius=12)
+        pygame.draw.rect(screen, COLOR_SLOT_EMPTY, slot_rect, border_radius=14)
 
     # Vẽ các ô số tĩnh
     for idx, tile in enumerate(state):
@@ -149,40 +172,13 @@ def animate_transition(
     from_state: tuple,
     to_state: tuple,
     size: int,
-    duration_ms: int = 180,
+    duration_ms: int = 175,
     fps: int = 60,
     board_rect: pygame.Rect | None = None,
     font: pygame.font.Font | None = None,
     overlay_callback: Callable[[pygame.Surface], None] | None = None,
 ) -> bool:
-    """Tạo hiệu ứng trượt mượt mà khi chuyển giữa hai trạng thái liên tiếp.
-
-    Parameters
-    ----------
-    screen : pygame.Surface
-        Bề mặt hiển thị Pygame.
-    from_state : tuple
-        Trạng thái trước khi di chuyển.
-    to_state : tuple
-        Trạng thái sau khi di chuyển 1 bước.
-    size : int
-        Kích thước cạnh bàn cờ (3 hoặc 4).
-    duration_ms : int
-        Thời lượng hiệu ứng trượt (mili-giây).
-    fps : int
-        Số khung hình trên giây.
-    board_rect : pygame.Rect | None, optional
-        Vùng vẽ bàn cờ.
-    font : pygame.font.Font | None, optional
-        Font vẽ số trên ô.
-    overlay_callback : Callable[[pygame.Surface], None] | None, optional
-        Hàm callback vẽ thêm giao diện nền/bảng thông tin xung quanh bàn cờ.
-
-    Returns
-    -------
-    bool
-        ``True`` nếu hoàn tất hiệu ứng bình thường, ``False`` nếu người dùng đóng cửa sổ.
-    """
+    """Tạo hiệu ứng trượt mượt mà khi chuyển giữa hai trạng thái liên tiếp."""
     if from_state == to_state:
         return True
 
@@ -190,14 +186,12 @@ def animate_transition(
         board_rect = get_default_board_rect(screen)
 
     if font is None:
-        font_size = max(24, board_rect.width // (size * 2))
+        font_size = max(26, board_rect.width // (size * 2))
         font = pygame.font.SysFont("Segoe UI", font_size, bold=True)
 
-    padding = max(6, board_rect.width // (size * 12))
+    padding = max(8, board_rect.width // (size * 11))
 
-    # Ô trống ở from_state chính là vị trí đích mà ô số trượt tới
     to_idx = from_state.index(0)
-    # Ô trống ở to_state chính là vị trí xuất phát của ô số đó
     from_idx = to_state.index(0)
     moving_tile = from_state[from_idx]
 
@@ -214,7 +208,6 @@ def animate_transition(
                 return False
 
         t = frame / total_frames
-        # Hàm nội suy Ease-Out Cubic giúp chuyển động tự nhiên
         eased_t = 1.0 - (1.0 - t) ** 3
 
         curr_row = start_row + (end_row - start_row) * eased_t
@@ -241,5 +234,4 @@ def animate_transition(
     return True
 
 
-# Alias tương thích ngược
 animate_step = animate_transition
