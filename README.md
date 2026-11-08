@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>PuzzleSolver-AI — Bộ giải 8-Puzzle / 15-Puzzle bằng A* và So sánh Heuristic</h1>
+  <h1>PuzzleSolver-AI - Bộ giải 8-Puzzle / 15-Puzzle bằng A* và So sánh Heuristic</h1>
   <p><em>
     <b>Đề tài:</b> Bộ giải bài toán 8-puzzle / 15-puzzle, tìm lời giải tối ưu và so sánh hiệu năng các hàm heuristic <br>
     <b>Môn học:</b> Trí tuệ nhân tạo
@@ -18,7 +18,7 @@
 ## Mục lục
 
 1. [Giới thiệu đề tài (Introduction)](#giới-thiệu-đề-tài-introduction)
-2. [Danh sách thành viên nhóm (Members)](#danh-sách-thành-viên-nhóm-members)
+2. [Danh sách thành viên nhóm & Phân công nhiệm vụ (Members & Tasks)](#danh-sách-thành-viên-nhóm--phân-công-nhiệm-vụ-members--tasks)
 3. [Tiến độ triển khai dự án (Project Progress)](#tiến-độ-triển-khai-dự-án-project-progress)
 4. [Công nghệ sử dụng (Tech Stack)](#công-nghệ-sử-dụng-tech-stack)
 5. [Cấu trúc thư mục (Project Structure)](#cấu-trúc-thư-mục-project-structure)
@@ -40,8 +40,8 @@
 
 ### 2. Giải pháp cốt lõi
 - **Thuật toán A\* tổng quát**: áp dụng được cho cả 8-puzzle lẫn 15-puzzle thông qua cùng một cách biểu diễn trạng thái.
-- **Hai hàm heuristic để so sánh**: Manhattan Distance và Misplaced Tiles — đo lường và so sánh định lượng số node được duyệt cũng như thời gian chạy giữa hai cách tiếp cận.
-- **Sinh đề tự động có kiểm soát độ khó**: trạng thái được sinh bằng random walk có giới hạn số bước từ trạng thái đích, đảm bảo luôn giải được và kiểm soát được độ khó — đặc biệt quan trọng khi mở rộng sang 15-puzzle để tránh thời gian chạy quá lâu.
+- **Hai hàm heuristic để so sánh**: Manhattan Distance và Misplaced Tiles, dùng để đo lường và so sánh định lượng số node được duyệt cũng như thời gian chạy giữa hai cách tiếp cận.
+- **Sinh đề tự động có kiểm soát độ khó**: trạng thái được sinh bằng random walk có giới hạn số bước từ trạng thái đích, đảm bảo luôn giải được và kiểm soát được độ khó (đặc biệt quan trọng khi mở rộng sang 15-puzzle để tránh thời gian chạy quá lâu).
 - **Demo trực quan**: hiển thị trực tiếp từng bước máy di chuyển để giải bàn cờ bằng giao diện Pygame.
 
 ### 3. Mục tiêu đánh giá
@@ -51,16 +51,16 @@
 
 ---
 
-## Danh sách thành viên nhóm (Members)
+## Danh sách thành viên nhóm & Phân công nhiệm vụ (Members & Tasks)
 
-| STT | Họ và Tên | MSSV | Vai trò | Nhiệm vụ chính trong dự án |
-| :---: | :--- | :---: | :---: | :--- |
-| 1 | [Trần Hồng Sơn](https://github.com/trnhongson) | `060206012202` | **Trưởng nhóm (Leader)** | Xây dựng giao diện Pygame, trực quan hoá từng bước giải. |
-| 2 | [Trần Duy Tân](https://github.com/dzytan) | `083206003584` | **Thành viên (Member)** | Biểu diễn trạng thái bàn cờ, cài đặt thuật toán A* tổng quát. |
-| 3 | [Lê Quốc Thắng](https://github.com/lequocthangg) | `079206003650` | **Thành viên (Member)** | Cài đặt 2 hàm heuristic, sinh test case, đo & so sánh hiệu năng. |
-| 4 | [Hoàng Công Minh Tâm](https://github.com/hcmtam74-maker) | `045206008142` | **Thành viên (Member)** | Tổng hợp và viết báo cáo Word hoàn chỉnh. |
-| 5 | [Nguyễn Hồ Diễm My](https://github.com/DiemMy105) | `075306001575` | **Thành viên (Member)** | Thiết kế slide thuyết trình toàn bộ nội dung đồ án. |
-| 6 | [Võ Thị Anh Tú](https://github.com/Vthianhtu) | `052306001040` | **Thành viên (Member)** | Đại diện nhóm trình bày trước lớp và xử lý câu hỏi phản biện. |
+| STT | Họ và Tên | MSSV | Vai trò | File đảm nhiệm chính | Trách nhiệm chuyên môn |
+| :---: | :--- | :---: | :---: | :--- | :--- |
+| 1 | [Trần Hồng Sơn](https://github.com/trnhongson) | `060206012202` | **Trưởng nhóm (Leader)** | `src/demo/main.py` | Điều khiển Demo Pygame, Finite State Machine, HUD & Tích hợp |
+| 2 | [Hoàng Công Minh Tâm](https://github.com/hcmtam74-maker) | `045206008142` | **Thành viên (Member)** | `src/core/puzzle_state.py`<br>`tests/test_puzzle_state.py` | Biểu diễn trạng thái Tuple, sinh con láng giềng, đếm Inversion & Kiểm tra khả giải |
+| 3 | [Lê Quốc Thắng](https://github.com/lequocthangg) | `079206003650` | **Thành viên (Member)** | `src/core/astar.py`<br>`tests/test_astar.py` | Thuật toán A*, hàng đợi Min-Heap (heapq), cơ chế an toàn Timeout & Node Limit |
+| 4 | [Trần Duy Tân](https://github.com/dzytan) | `083206003584` | **Thành viên (Member)** | `src/core/heuristics.py`<br>`src/core/generator.py` | Hàm Manhattan, Misplaced & Sinh testcase Random Walk có kiểm soát độ khó |
+| 5 | [Võ Thị Anh Tú](https://github.com/Vthianhtu) | `052306001040` | **Thành viên (Member)** | `src/benchmark/run_benchmark.py`<br>`src/benchmark/compare_heuristics.py` | Thực nghiệm đo lường tự động, xuất CSV, phân tích Pandas & Vẽ biểu đồ Matplotlib |
+| 6 | [Nguyễn Hồ Diễm My](https://github.com/DiemMy105) | `075306001575` | **Thành viên (Member)** | `src/demo/board_renderer.py` | Render bàn cờ responsive bo góc, hiệu ứng 3D đổ bóng & Hoạt ảnh trượt Ease-Out Cubic |
 
 ---
 
@@ -128,8 +128,8 @@ PuzzleSolver-AI/
 ### 2. Clone mã nguồn
 
 ```bash
-git clone https://github.com/<ten-nhom>/PuzzleSolver-AI.git
-cd PuzzleSolver-AI
+git clone https://github.com/trnhongson/PuzzelSolver-AI.git
+cd PuzzelSolver-AI
 ```
 
 ### 3. Cài đặt & chạy chương trình
@@ -143,7 +143,7 @@ source venv/bin/activate      # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 
 # 3. Sinh bộ test case cố định (chỉ cần chạy 1 lần)
-python src/core/generator.py --seed 42 --out src/benchmark/testcases_8puzzle.csv
+python src/core/generator.py --seed 42
 
 # 4. Chạy demo trực quan
 python src/demo/main.py
