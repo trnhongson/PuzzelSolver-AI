@@ -23,8 +23,8 @@ def solve(
     size : int
         Kích thước bàn cờ (3 cho 8-puzzle, 4 cho 15-puzzle).
     heuristic_fn : Callable[[tuple, int], int]
-        Hàm heuristic dạng ``heuristic_fn(state, size) -> int``.
-        TV5 sẽ cung cấp 2 hàm: ``manhattan_distance`` và ``misplaced_tiles``.
+        Hàm heuristic dạng ``heuristic_fn(state, size) -> int``
+        (ví dụ: ``manhattan_distance`` hoặc ``misplaced_tiles``).
     node_limit : int
         Giới hạn số node được mở rộng (expand). Nếu vượt quá, dừng sớm.
     timeout_seconds : float
