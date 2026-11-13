@@ -53,14 +53,14 @@
 
 ## Danh sách thành viên nhóm & Phân công nhiệm vụ (Members & Tasks)
 
-| STT | Họ và Tên | MSSV | Vai trò | File đảm nhiệm chính | Trách nhiệm chuyên môn |
-| :---: | :--- | :---: | :---: | :--- | :--- |
-| 1 | [Trần Hồng Sơn](https://github.com/trnhongson) | `060206012202` | **Trưởng nhóm (Leader)** | `src/demo/main.py` | Điều khiển Demo Pygame, Finite State Machine, HUD & Tích hợp |
-| 2 | [Hoàng Công Minh Tâm](https://github.com/hcmtam74-maker) | `045206008142` | **Thành viên (Member)** | `src/core/puzzle_state.py`<br>`tests/test_puzzle_state.py` | Biểu diễn trạng thái Tuple, sinh con láng giềng, đếm Inversion & Kiểm tra khả giải |
-| 3 | [Lê Quốc Thắng](https://github.com/lequocthangg) | `079206003650` | **Thành viên (Member)** | `src/core/astar.py`<br>`tests/test_astar.py` | Thuật toán A*, hàng đợi Min-Heap (heapq), cơ chế an toàn Timeout & Node Limit |
-| 4 | [Trần Duy Tân](https://github.com/dzytan) | `083206003584` | **Thành viên (Member)** | `src/core/heuristics.py`<br>`src/core/generator.py` | Hàm Manhattan, Misplaced & Sinh testcase Random Walk có kiểm soát độ khó |
-| 5 | [Võ Thị Anh Tú](https://github.com/Vthianhtu) | `052306001040` | **Thành viên (Member)** | `src/benchmark/run_benchmark.py`<br>`src/benchmark/compare_heuristics.py` | Thực nghiệm đo lường tự động, xuất CSV, phân tích Pandas & Vẽ biểu đồ Matplotlib |
-| 6 | [Nguyễn Hồ Diễm My](https://github.com/DiemMy105) | `075306001575` | **Thành viên (Member)** | `src/demo/board_renderer.py` | Render bàn cờ responsive bo góc, hiệu ứng 3D đổ bóng & Hoạt ảnh trượt Ease-Out Cubic |
+| STT | Họ và Tên | MSSV | Vai trò | Nhiệm vụ |
+| :---: | :--- | :---: | :---: | :--- |
+| 1 | [Trần Hồng Sơn](https://github.com/trnhongson) | `060206012202` | **Trưởng nhóm (Leader)** | Điều khiển giao diện Pygame, kiến trúc State Machine, bảng HUD và tích hợp hệ thống. |
+| 2 | [Hoàng Công Minh Tâm](https://github.com/hcmtam74-maker) | `045206008142` | **Thành viên (Member)** | Biểu diễn trạng thái Tuple, sinh trạng thái con láng giềng, đếm Inversion và kiểm tra khả giải. |
+| 3 | [Lê Quốc Thắng](https://github.com/lequocthangg) | `079206003650` | **Thành viên (Member)** | Cài đặt thuật toán A* tổng quát, hàng đợi Min-Heap (heapq), cơ chế an toàn Timeout & Node Limit. |
+| 4 | [Trần Duy Tân](https://github.com/dzytan) | `083206003584` | **Thành viên (Member)** | Cài đặt 2 hàm Heuristic (Manhattan, Misplaced) và thuật toán sinh test case Random Walk có kiểm soát độ khó. |
+| 5 | [Võ Thị Anh Tú](https://github.com/Vthianhtu) | `052306001040` | **Thành viên (Member)** | Xây dựng hệ thống đo lường hiệu năng tự động (Benchmark), xuất CSV, phân tích Pandas và vẽ biểu đồ Matplotlib. |
+| 6 | [Nguyễn Hồ Diễm My](https://github.com/DiemMy105) | `075306001575` | **Thành viên (Member)** | Thiết kế hiển thị bàn cờ responsive bo góc, hiệu ứng 3D đổ bóng và hoạt ảnh trượt mượt mà Ease-Out Cubic. |
 
 ---
 
